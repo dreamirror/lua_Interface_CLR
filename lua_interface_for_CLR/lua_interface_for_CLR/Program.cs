@@ -22,6 +22,7 @@ namespace lua_interface_for_CLR
         {
             // 新建一个Lua解释器，每一个Lua实例都相互独立
             Lua lua = new Lua();
+            Lua lua_alpha = new Lua();
 
             TestReg obj = new TestReg();
             lua.RegisterFunction("LuaTestRegFun", obj, obj.GetType().GetMethod("TestRegFun"));
@@ -44,10 +45,11 @@ namespace lua_interface_for_CLR
             object[] retVals = lua.DoString("return num,str");
 
             // 访问global域num和str
-            double num = (double)lua["num"];
+            lua_alpha["num"] = 222;
+            double num = (double)lua_alpha["num"];
             string str = (string)lua["str"];
 
-           // Console.WriteLine("num = {0}", num);
+            Console.WriteLine("num = {0}", num);
             //Console.WriteLine("str = {0}", str);
             //Console.WriteLine("width = {0}", lua["width"]);
             //Console.WriteLine("height = {0}", lua["height"]);
